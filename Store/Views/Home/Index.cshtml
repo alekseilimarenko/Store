@@ -12,15 +12,46 @@
             <div class="col-md-12">
                 <h2>График работы магазинов</h2>
                 <p>
-                    @Html.DropDownList("ID", ViewBag.Stores as SelectList) 
+                    @Html.DropDownList("ID", ViewBag.Stores as SelectList, new { @class = "form-control", @id = "StoreId" })
                
                 </p>
             </div>
       
             <input type="submit" value="Подобрать" />
             <div class="col-md-12" style="border: black solid 1px">
-                @Html.TextAreaFor(model => model.ID, 10, 40, null);
+                @Html.TextAreaFor(model => model.ID, 4, 63, new {@class = "form-control", @id = "ServiceComment"})
             </div>
         </div>
     </div>
 }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        //получение значения элемента StoreId по Id
+        var instances = document.getElementById('StoreId');
+
+        console.log(instances.value);
+
+        $(function () {
+            $('#StoreId').change(function () {
+                console.log("seasonInstanceId change called");
+
+                alert($("#StoreId option:selected").val());
+
+                //получение значения аттрибута value элемента seasonInstances
+                var storeId = $("#StoreId option:selected").val();
+
+                console.log("storeId = " + storeId);
+
+                var route = '/Home/Index?id=' + storeId;
+                console.log(route);
+                
+            });
+            console.log("seasonInstanceId change done");
+        });
+</script>
+}
+
