@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище StoreModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="fruits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="pn_daynames">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="smallint" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="countday" Type="int" />
+          <Property Name="orderby" Type="int" />
+          <Property Name="short_name" Type="nvarchar" MaxLength="10" />
+          <Property Name="days" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Store.dbo.routine" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="routine">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="dayofweek" Type="smallint" />
+          <Property Name="workfrom" Type="datetime2" Precision="7" />
+          <Property Name="workto" Type="datetime2" Precision="7" />
+          <Property Name="intervalfrom" Type="datetime2" Precision="7" />
+          <Property Name="intervalto" Type="datetime2" Precision="7" />
+        </EntityType>
+        <Association Name="FK_dbo_routine_dbo_pn_daynames_id">
+          <End Role="pn_daynames" Type="Self.pn_daynames" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="routine" Type="Self.routine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pn_daynames">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="routine">
+              <PropertyRef Name="dayofweek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище StoreModelContainer">
+          <EntitySet Name="fruits" EntityType="Self.fruits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pn_daynames" EntityType="Self.pn_daynames" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="routine" EntityType="Self.routine" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [routine].[Id] AS [Id], 
+    [routine].[Name] AS [Name], 
+    [routine].[dayofweek] AS [dayofweek], 
+    [routine].[workfrom] AS [workfrom], 
+    [routine].[workto] AS [workto], 
+    [routine].[intervalfrom] AS [intervalfrom], 
+    [routine].[intervalto] AS [intervalto]
+    FROM [dbo].[routine] AS [routine]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_dbo_routine_dbo_pn_daynames_id" Association="Self.FK_dbo_routine_dbo_pn_daynames_id">
+            <End Role="pn_daynames" EntitySet="pn_daynames" />
+            <End Role="routine" EntitySet="routine" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="pn_daynames">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int16" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="countday" Type="Int32" />
+          <Property Name="orderby" Type="Int32" />
+          <Property Name="short_name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="days" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="routine" Relationship="StoreModel.FK_dbo_routine_dbo_pn_daynames_id" FromRole="pn_daynames" ToRole="routine" />
+        </EntityType>
+        <EntityContainer Name="StoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="pn_daynames" EntityType="Self.pn_daynames" />
+          <EntitySet Name="fruits" EntityType="StoreModel.fruits" />
+          <EntitySet Name="routine" EntityType="StoreModel.routine" />
+          <AssociationSet Name="FK_dbo_routine_dbo_pn_daynames_id" Association="StoreModel.FK_dbo_routine_dbo_pn_daynames_id">
+            <End Role="pn_daynames" EntitySet="pn_daynames" />
+            <End Role="routine" EntitySet="routine" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="fruits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="routine">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dayofweek" Type="Int16" />
+          <Property Name="workfrom" Type="DateTime" Precision="7" />
+          <Property Name="workto" Type="DateTime" Precision="7" />
+          <Property Name="intervalfrom" Type="DateTime" Precision="7" />
+          <Property Name="intervalto" Type="DateTime" Precision="7" />
+          <NavigationProperty Name="pn_daynames" Relationship="StoreModel.FK_dbo_routine_dbo_pn_daynames_id" FromRole="routine" ToRole="pn_daynames" />
+        </EntityType>
+        <Association Name="FK_dbo_routine_dbo_pn_daynames_id">
+          <End Type="StoreModel.pn_daynames" Role="pn_daynames" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="StoreModel.routine" Role="routine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pn_daynames">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="routine">
+              <PropertyRef Name="dayofweek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище StoreModelContainer" CdmEntityContainer="StoreEntities">
+          <EntitySetMapping Name="pn_daynames">
+            <EntityTypeMapping TypeName="StoreModel.pn_daynames">
+              <MappingFragment StoreEntitySet="pn_daynames">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="countday" ColumnName="countday" />
+                <ScalarProperty Name="orderby" ColumnName="orderby" />
+                <ScalarProperty Name="short_name" ColumnName="short_name" />
+                <ScalarProperty Name="days" ColumnName="days" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fruits">
+            <EntityTypeMapping TypeName="StoreModel.fruits">
+              <MappingFragment StoreEntitySet="fruits">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="routine">
+            <EntityTypeMapping TypeName="StoreModel.routine">
+              <MappingFragment StoreEntitySet="routine">
+                <ScalarProperty Name="intervalto" ColumnName="intervalto" />
+                <ScalarProperty Name="intervalfrom" ColumnName="intervalfrom" />
+                <ScalarProperty Name="workto" ColumnName="workto" />
+                <ScalarProperty Name="workfrom" ColumnName="workfrom" />
+                <ScalarProperty Name="dayofweek" ColumnName="dayofweek" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

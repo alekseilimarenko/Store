@@ -1,0 +1,26 @@
+﻿@using System.Web.Mvc.Html
+@model Store.Models.Fruit
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>График работы магазинов</h2>
+                <p>
+                    @Html.DropDownList("ID", ViewBag.Stores as SelectList) 
+               
+                </p>
+            </div>
+      
+            <input type="submit" value="Подобрать" />
+            <div class="col-md-12" style="border: black solid 1px">
+                @Html.TextAreaFor(model => model.ID, 10, 40, null);
+            </div>
+        </div>
+    </div>
+}
