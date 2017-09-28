@@ -1,31 +1,31 @@
 ﻿@using System.Web.Mvc.Html
-@model Store.Models.Fruit
 
 @{
     ViewBag.Title = "Home Page";
 }
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+@using (Ajax.BeginForm("_PartView", new AjaxOptions { UpdateTargetId = "res"}))
 {
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>График работы магазинов</h2>
                 <p>
-                    @Html.DropDownList("ID", ViewBag.Stores as SelectList, new { @class = "form-control", @id = "StoreId" })
-               
+                    @Html.DropDownList("ID", ViewBag.Stores as SelectList,
+                        new { @class = "form-control", @id = "StoreId" })
+
+                    <input type="submit" value="Подобрать" />
                 </p>
             </div>
-      
-            <input type="submit" value="Подобрать" />
-            <div class="col-md-12" style="border: black solid 1px">
-                @Html.TextAreaFor(model => model.ID, 4, 63, new {@class = "form-control", @id = "ServiceComment"})
+
+            <div class="col-md-12" style="border: black solid 1px" id="res">
+
             </div>
         </div>
+
     </div>
 }
 
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
     <script type="text/javascript">
@@ -46,12 +46,13 @@
 
                 console.log("storeId = " + storeId);
 
-                var route = '/Home/Index?id=' + storeId;
+                var route = '/Home/_PartView?id=' + storeId;
                 console.log(route);
-                
+                $('#ServiceComment').load(route);
+                console.log("route done");
             });
             console.log("seasonInstanceId change done");
         });
 </script>
-}
+}*@
 
