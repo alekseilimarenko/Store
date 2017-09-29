@@ -10,49 +10,13 @@
         <div class="row">
             <div class="col-md-12">
                 <p>
-                    @Html.DropDownList("ID", ViewBag.Stores as SelectList,
-                        new { @class = "form-control", @id = "StoreId" })
-
+                    @Html.DropDownList("ID", ViewBag.Stores as SelectList, new { @class = "form-control" })
                     <input type="submit" value="Подобрать" />
                 </p>
             </div>
 
-            <div class="col-md-12" style="border: black solid 1px" id="res">
-
-            </div>
+            <div class="col-md-12" style="border: black solid 1px" id="res"></div>
         </div>
 
     </div>
 }
-
-@*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-
-    <script type="text/javascript">
-
-        //получение значения элемента StoreId по Id
-        var instances = document.getElementById('StoreId');
-
-        console.log(instances.value);
-
-        $(function () {
-            $('#StoreId').change(function () {
-                console.log("seasonInstanceId change called");
-
-                alert($("#StoreId option:selected").val());
-
-                //получение значения аттрибута value элемента seasonInstances
-                var storeId = $("#StoreId option:selected").val();
-
-                console.log("storeId = " + storeId);
-
-                var route = '/Home/_PartView?id=' + storeId;
-                console.log(route);
-                $('#ServiceComment').load(route);
-                console.log("route done");
-            });
-            console.log("seasonInstanceId change done");
-        });
-</script>
-}*@
-

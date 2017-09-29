@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Mvc;
 using Store.DAL;
 using Store.Models;
-using Store.Classes;
 
 namespace Store.Controllers
 {
@@ -16,11 +13,7 @@ namespace Store.Controllers
 
         public ActionResult Index()
         {
-            var stores = db.routine;/*("select Id, Name from dbo.routine Group By dbo.routine.Id, dbo.routine.Name");*/
-
-            var selected = from s in db.routine
-                           group s by s.Id into g
-                           select new {Id = g.Key, Name = g.Key.ToString()};   
+            var selected = db.routine.GroupBy(s => s.Id).Select(g => new {Id = g.Key, Name = g.Key.ToString()});   
                            
             ViewBag.Stores = new SelectList(selected, "Id", "Name");
 
@@ -40,25 +33,51 @@ namespace Store.Controllers
 
             //return results.ToList();
 
+            var result = db.routine.Select(rt => new
+            {
+                rt.Id,
+                shortName = rt.pn_daynames.short_name,
+                workFrom = rt.workfrom,
+                workTo = rt.workto,
+                intervalFrom = rt.intervalfrom,
+                intervalTo = rt.intervalto
+                
+            }).Where(d => d.Id == id).GroupBy(g => g.Id ).ToList();
+
+            var schedule = String.Empty;
+
+            //foreach (var item in result)
+            //{
+            //    if (item.workFrom.Value.TimeOfDay )
+            //    {
+            //        item.
+            //    }
+            //}
+
             var res = new ViewModel();
 
             res.Message = id.ToString();
 
             return PartialView(res);
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
+
+
+//declare @tmp table(id int, Shortname nvarchar(50), workfrom datetime, workto datetime,
+//intervalfrom datetime, intervalto datetime )
+//insert into @tmp(id, Shortname, workfrom, workto,
+//intervalfrom, intervalto )
+//select WorkTime.id,
+//ShortName = (select case when DayNames.id< 5 then 'пн-чт'
+
+//when  DayNames.id< 6 then 'пт' else Short_name end
+
+//from dbo.pn_daynames as DayNames
+
+//where WorkTime.dayofweek = DayNames.id),
+//WorkTime.workfrom, WorkTime.workto, WorkTime.intervalfrom, WorkTime.intervalto
+//from dbo.routine as WorkTime
+//where WorkTime.id = 4052
+//select* from @tmp
+//group by ID, ShortName, workfrom, workto, intervalfrom, intervalto

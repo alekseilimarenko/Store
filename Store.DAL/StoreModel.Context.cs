@@ -12,6 +12,8 @@ namespace Store.DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class StoreEntities : DbContext
     {
@@ -28,5 +30,14 @@ namespace Store.DAL
         public virtual DbSet<pn_daynames> pn_daynames { get; set; }
         public virtual DbSet<fruits> fruits { get; set; }
         public virtual DbSet<routine> routine { get; set; }
+    
+        public virtual ObjectResult<GetSchedule_Result> GetSchedule(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSchedule_Result>("GetSchedule", idParameter);
+        }
     }
 }

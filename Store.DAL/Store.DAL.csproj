@@ -53,6 +53,9 @@
     <Compile Include="fruits.cs">
       <DependentUpon>StoreModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetSchedule_Result.cs">
+      <DependentUpon>StoreModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="pn_daynames.cs">
       <DependentUpon>StoreModel.tt</DependentUpon>
     </Compile>
@@ -75,6 +78,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Utils\WorkDb.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

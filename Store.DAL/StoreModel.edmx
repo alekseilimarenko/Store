@@ -52,6 +52,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="Хранилище StoreModelContainer">
           <EntitySet Name="fruits" EntityType="Self.fruits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pn_daynames" EntityType="Self.pn_daynames" Schema="dbo" store:Type="Tables" />
@@ -95,6 +98,9 @@
             <End Role="pn_daynames" EntitySet="pn_daynames" />
             <End Role="routine" EntitySet="routine" />
           </AssociationSet>
+          <FunctionImport Name="GetSchedule" ReturnType="Collection(StoreModel.GetSchedule_Result)">
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="fruits">
           <Key>
@@ -131,6 +137,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="GetSchedule_Result">
+          <Property Type="Int32" Name="id" Nullable="true" />
+          <Property Type="String" Name="Shortname" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="workfrom" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="workto" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="intervalfrom" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="intervalto" Nullable="true" Precision="23" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -170,6 +184,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetSchedule" FunctionName="Хранилище StoreModel.GetSchedule">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="StoreModel.GetSchedule_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Shortname" ColumnName="Shortname" />
+                <ScalarProperty Name="workfrom" ColumnName="workfrom" />
+                <ScalarProperty Name="workto" ColumnName="workto" />
+                <ScalarProperty Name="intervalfrom" ColumnName="intervalfrom" />
+                <ScalarProperty Name="intervalto" ColumnName="intervalto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
