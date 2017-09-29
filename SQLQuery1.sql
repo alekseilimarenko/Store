@@ -26,3 +26,25 @@ EXEC	@return_value = [dbo].[GetSchedule]
 SELECT	@return_value as 'Return Value'
 
 GO
+
+
+
+CREATE PROCEDURE [dbo].[GetSchedule]
+	@Id int
+AS
+	declare @tmp table (id int, Shortname nvarchar(50), workfrom datetime, workto datetime,
+                 intervalfrom datetime,  intervalto datetime )
+		insert into @tmp (id, Shortname, workfrom, workto,
+                 intervalfrom,  intervalto )
+		select	WorkTime.id,
+				ShortName = (select case when  DayNames.id < 5 then 'пн-чт'
+	                         when  DayNames.id < 6 then 'пт' else Short_name end 
+						    from dbo.pn_daynames as DayNames
+							where WorkTime.dayofweek = DayNames.id),
+				WorkTime.workfrom, WorkTime.workto, WorkTime.intervalfrom, WorkTime.intervalto 
+		from dbo.routine as WorkTime
+		where WorkTime.id = @Id
+		select * from @tmp
+		group by ID, ShortName, workfrom,  workto, intervalfrom, intervalto
+
+GO
