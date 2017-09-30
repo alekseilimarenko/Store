@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Odbc;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Store.DAL.Utils
+﻿namespace Store.DAL.Utils
 {
     public static class WorkDb
     {

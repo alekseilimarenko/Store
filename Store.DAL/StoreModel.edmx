@@ -5,13 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Хранилище StoreModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="fruits">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="pn_daynames">
           <Key>
             <PropertyRef Name="id" />
@@ -56,7 +49,6 @@
           <Parameter Name="Id" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="Хранилище StoreModelContainer">
-          <EntitySet Name="fruits" EntityType="Self.fruits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pn_daynames" EntityType="Self.pn_daynames" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="routine" EntityType="Self.routine" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -92,7 +84,6 @@
         </EntityType>
         <EntityContainer Name="StoreEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="pn_daynames" EntityType="Self.pn_daynames" />
-          <EntitySet Name="fruits" EntityType="StoreModel.fruits" />
           <EntitySet Name="routine" EntityType="StoreModel.routine" />
           <AssociationSet Name="FK_dbo_routine_dbo_pn_daynames_id" Association="StoreModel.FK_dbo_routine_dbo_pn_daynames_id">
             <End Role="pn_daynames" EntitySet="pn_daynames" />
@@ -102,13 +93,6 @@
             <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
-        <EntityType Name="fruits">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="routine">
           <Key>
             <PropertyRef Name="Id" />
@@ -160,14 +144,6 @@
                 <ScalarProperty Name="orderby" ColumnName="orderby" />
                 <ScalarProperty Name="short_name" ColumnName="short_name" />
                 <ScalarProperty Name="days" ColumnName="days" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="fruits">
-            <EntityTypeMapping TypeName="StoreModel.fruits">
-              <MappingFragment StoreEntitySet="fruits">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

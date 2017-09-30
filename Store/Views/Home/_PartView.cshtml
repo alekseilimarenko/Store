@@ -1,14 +1,11 @@
 ﻿@model Store.Models.ViewModel
  
-@{ 
-    var t = Model.Message;
-}
 <div id="schedule">
     <h3>
         График работы выбранного магазина
     </h3>
     <p>
-        @Model.Message
+        @Model.Id @Model.Message
     </p>
 </div>
 
