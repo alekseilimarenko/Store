@@ -25,33 +25,32 @@ namespace Store.Controllers
         public ActionResult _PartView(int id=0)
         {
             SqlParameter param = new SqlParameter("@Id", id);
-            var scheduleRes = db.Database.SqlQuery<routine>("GetSchedule", param);
-
-            var resId = scheduleRes.FirstOrDefaultAsync().Result.Id;
+            var scheduleRes = db.Database.SqlQuery<GetSchedule_Result>("GetSchedule @Id", param);
 
             var schedule = String.Empty;
+            var resId = String.Empty;
 
             foreach (var item in scheduleRes)
             {
                 if (item.intervalfrom.Value.TimeOfDay != item.intervalto.Value.TimeOfDay)
                 {
-                    schedule = item.pn_daynames.short_name + 
-                        " " + item.workfrom.Value.ToShortTimeString() + item.workto.Value.ToShortTimeString() + 
-                        " (" + item.intervalfrom.Value.ToShortTimeString() + "-" + item.intervalfrom.Value.ToShortTimeString() + ";";
+                    schedule = schedule + item.Shortname + 
+                        " " + item.workfrom.Value.ToShortTimeString() + " - " + item.workto.Value.ToShortTimeString() + 
+                        " (" + item.intervalfrom.Value.ToShortTimeString() + "-" + item.intervalfrom.Value.ToShortTimeString() + ");";
                 }
                 else
                 {
-                    schedule = item.pn_daynames.short_name +
-                               " " + item.workfrom.Value.ToShortTimeString() + item.workto.Value.ToShortTimeString() +
-                               " (" + item.intervalfrom.Value.ToShortTimeString() + "-" + item.intervalfrom.Value.ToShortTimeString() + ";";
+                    schedule = schedule + item.Shortname +
+                               " " + item.workfrom.Value.ToShortTimeString() + " - " + item.workto.Value.ToShortTimeString() + ";";
                 }
+                resId = item.id.Value.ToString();
             }
 
-            schedule = resId + schedule;
+            schedule = resId  + " " + schedule;
 
             var res = new ViewModel();
 
-            res.Message = id.ToString();
+            res.Message = schedule;
 
             return PartialView(res);
         }
