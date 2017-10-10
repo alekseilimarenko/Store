@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Store.DAL;
 using Store.Models;
+using System.Collections.Generic;
 
 namespace Store.Controllers
 {
@@ -11,6 +12,11 @@ namespace Store.Controllers
         StoreEntities db = new StoreEntities();
 
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Store()
         {
             var selected = db.routine.GroupBy(s => s.Id).Select(g => new {Id = g.Key, Name = g.Key.ToString()});   
                            

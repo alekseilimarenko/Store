@@ -1,0 +1,23 @@
+﻿@model Store.Models.OrderModel
+
+@{
+    ViewBag.Title = "CTO";
+}
+
+<h2>CTO</h2>
+
+@using (Ajax.BeginForm("GetTransportType", new AjaxOptions { UpdateTargetId = "res" }))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    @Html.DropDownList("ID", ViewBag.TransportType as SelectList, new { @class = "form-control" })
+                    <input type="submit" value="Подобрать" />
+                </p>
+            </div>
+            <div class="col-md-12" style="border: black solid 1px" id="res"></div>
+        </div>
+
+    </div>
+}

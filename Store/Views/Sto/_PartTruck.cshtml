@@ -1,0 +1,70 @@
+﻿@model Store.Models.OrderModel
+
+<title>Грузовые автомобили</title>
+
+@using (Ajax.BeginForm("GetRepearCost", new AjaxOptions { UpdateTargetId = "res" }))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <h2>Перечень работ по обслуживанию грузовых автомобилей</h2>
+    <hr />
+
+    <h4>Введите состояние узлов и агрегатов от 1 до 100(100 новая, 0 не рабочая)</h4>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Body, "Кузов", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Body, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Wheels, "Колеса", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Wheels, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Wheels, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Engine, "Двигатель", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Engine, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Engine, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Breaks, "Тормоза", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Breaks, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Breaks, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Suspension, "Ходовая", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Suspension, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Suspension, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Hydraulics, "Гидравлика", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Hydraulics, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Hydraulics, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+   <p>
+        <input type="submit" value="Расчитать" />
+        |
+        @Html.ActionLink("Назад", "Index", "Sto", null, htmlAttributes: new { @class = "btn-info" })
+    </p>
+
+    <div class="col-md-12" style="border: black solid 1px" id="res"></div>
+}

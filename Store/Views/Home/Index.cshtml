@@ -4,19 +4,3 @@
     ViewBag.Title = "Home Page";
 }
 
-@using (Ajax.BeginForm("_PartView", new AjaxOptions { UpdateTargetId = "res"}))
-{
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>
-                    @Html.DropDownList("ID", ViewBag.Stores as SelectList, new { @class = "form-control" })
-                    <input type="submit" value="Подобрать" />
-                </p>
-            </div>
-
-            <div class="col-md-12" style="border: black solid 1px" id="res"></div>
-        </div>
-
-    </div>
-}

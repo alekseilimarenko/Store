@@ -1,0 +1,43 @@
+﻿@model Store.Models.ResultModel
+
+<div>
+    <h4>ResultModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GeneralState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GeneralState)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RepearCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RepearCost)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddServ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddServ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
