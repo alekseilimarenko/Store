@@ -2,12 +2,12 @@
 {
     public class ResultModel
     {
-        public string GeneralState { get; set; }
+        public int GeneralState { get; set; }
 
         public string RepearCost { get; set; }
 
         public string AddServ { get; set; }
 
-        public string Amount { get; set; }
+        public int Amount { get; set; }
     }
 }
