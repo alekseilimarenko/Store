@@ -209,8 +209,6 @@
     <Content Include="Scripts\jquery-3.2.1.min.map" />
     <Content Include="Views\Home\Store.cshtml" />
     <Content Include="Views\Sto\Index.cshtml" />
-    <Content Include="Views\Sto\Bus.cshtml" />
-    <Content Include="Views\Sto\Car.cshtml" />
     <Content Include="Views\Sto\GetRepearCost.cshtml" />
     <Content Include="Views\Sto\_PartBus.cshtml" />
     <Content Include="Views\Sto\_PartCar.cshtml" />

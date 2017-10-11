@@ -1,34 +1,26 @@
-﻿using System.ComponentModel;
-
+﻿
 namespace Store.Models
 {
     public class OrderModel
     {
-        [DisplayName("Кузов")]
+        public int Type { get; set; }
+
         public int Body { get; set; }
 
-        [DisplayName("Колеса")]
         public int Wheels { get; set; }
 
-        [DisplayName("Двигатель")]
         public int Engine { get; set; }
 
-        [DisplayName("Тормоза")]
         public int Breaks { get; set; }
 
-        [DisplayName("Ходовая")]
         public int Suspension { get; set; }
 
-        [DisplayName("Гидравлика")]
-        public int? Hydraulics { get; set; }
+        public int Hydraulics { get; set; }
 
-        [DisplayName("Салон и поручни")]
-        public int? Cabin { get; set; }
+        public int Cabin { get; set; }
 
-        [DisplayName("Балансировка колес")]
         public bool WheelBalancing { get; set; }
 
-        [DisplayName("Смена обивки сидений")]
         public bool ChangeSeat { get; set; }
     }
 }

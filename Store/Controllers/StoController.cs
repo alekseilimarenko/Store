@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Store.Models;
 
@@ -44,48 +41,62 @@ namespace Store.Controllers
         {
             var repCost = new ResultModel();
 
-            if (ordModel.Hydraulics != null)
+            if (ModelState.IsValid)
             {
-                repCost.GeneralState = (ordModel.Body + ordModel.Wheels
-                        + ordModel.Engine + ordModel.Breaks + ordModel.Suspension +
-                        (int)ordModel.Hydraulics) / 6;
+                switch (ordModel.Type)
+                {
+                    case 1:
+                        repCost.RepearCost = ordModel.Body * 10 + ordModel.Wheels * 10
+                                             + ordModel.Engine * 10 + ordModel.Breaks * 10 + ordModel.Suspension * 10;
 
-                repCost.Amount = ordModel.Body*10 + ordModel.Wheels*10
-                        + ordModel.Engine*10 + ordModel.Breaks*10 + ordModel.Suspension*10 +
-                        (int)ordModel.Hydraulics * 10;
-            }
-            else if(ordModel.Cabin != null)
-            {
-                repCost.GeneralState = (ordModel.Body + ordModel.Wheels
-                       + ordModel.Engine + ordModel.Breaks + ordModel.Suspension +
-                       (int)ordModel.Cabin) / 6;
-                if (ordModel.ChangeSeat)
-                {
-                    repCost.Amount = ordModel.Body * 10 + ordModel.Wheels * 10
-                          + ordModel.Engine * 10 + ordModel.Breaks * 10 + ordModel.Suspension * 10 +
-                          (int)ordModel.Cabin * 10 + 300;
+                        repCost.GeneralState = (ordModel.Body + ordModel.Wheels
+                                                + ordModel.Engine + ordModel.Breaks + ordModel.Suspension) / 5;
+
+                        if (ordModel.WheelBalancing)
+                        {
+                            repCost.Amount = repCost.RepearCost + 100;
+                            repCost.AddServ = "балансировка колес";
+                        }
+                        else
+                        {
+                            repCost.Amount = repCost.RepearCost;
+                            repCost.AddServ = "";
+                        }
+                        break;
+                    case 2:
+                        repCost.GeneralState = (ordModel.Body + ordModel.Wheels
+                                                + ordModel.Engine + ordModel.Breaks + ordModel.Suspension +
+                                                ordModel.Hydraulics) / 6;
+
+                        repCost.Amount = repCost.RepearCost = ordModel.Body * 10 + ordModel.Wheels * 10
+                                                              + ordModel.Engine * 10 + ordModel.Breaks * 10 +
+                                                              ordModel.Suspension * 10 +
+                                                              ordModel.Hydraulics * 10;
+
+                        repCost.AddServ = "";
+                        break;
+                    case 3:
+                        repCost.RepearCost = ordModel.Body * 10 + ordModel.Wheels * 10
+                                             + ordModel.Engine * 10 + ordModel.Breaks * 10 + ordModel.Suspension * 10 +
+                                             ordModel.Cabin * 10;
+
+                        repCost.GeneralState = (ordModel.Body + ordModel.Wheels
+                                                + ordModel.Engine + ordModel.Breaks + ordModel.Suspension +
+                                                ordModel.Cabin) / 6;
+
+                        if (ordModel.ChangeSeat)
+                        {
+                            repCost.Amount = repCost.RepearCost + 300;
+                            repCost.AddServ = "смена обивки сидений в салоне";
+                        }
+                        else
+                        {
+                            repCost.Amount = repCost.RepearCost;
+                            repCost.AddServ = "";
+                        }
+                        break;
                 }
-                else
-                {
-                    repCost.Amount = ordModel.Body * 10 + ordModel.Wheels * 10
-                         + ordModel.Engine * 10 + ordModel.Breaks * 10 + ordModel.Suspension * 10 +
-                         (int)ordModel.Cabin * 10;
-                }
-            }
-            else
-            {
-                repCost.GeneralState = (ordModel.Body + ordModel.Wheels
-                         + ordModel.Engine + ordModel.Breaks + ordModel.Suspension) / 5;
-                if(ordModel.WheelBalancing)
-                {
-                    repCost.Amount = ordModel.Body * 10 + ordModel.Wheels * 10
-                        + ordModel.Engine * 10 + ordModel.Breaks * 10 + ordModel.Suspension * 10 + 100;
-                }
-                else
-                {
-                    repCost.Amount = ordModel.Body * 10 + ordModel.Wheels * 10
-                        + ordModel.Engine * 10 + ordModel.Breaks * 10 + ordModel.Suspension * 10;
-                }
+
             }
 
             return PartialView(repCost);

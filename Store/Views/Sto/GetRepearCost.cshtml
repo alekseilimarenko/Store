@@ -1,42 +1,20 @@
 ﻿@model Store.Models.ResultModel
 
 <div>
-    <h4>ResultModel</h4>
+    <h4>Результаты обследования транспортного средства</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.GeneralState)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GeneralState)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RepearCost)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RepearCost)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AddServ)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AddServ)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
-
-    </dl>
+    <p>
+        Общее состояние : @Model.GeneralState, Стоимость ремонта : @Model.RepearCost,
+        @if (Model.AddServ != "")
+        {
+            <span>Дополнительная услуга : @Model.AddServ,</span>
+        }
+        else
+        {
+            <span>Дополнительная услуга : - ,</span>
+        }
+         К оплате всего : @Model.Amount
+    </p>
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index")

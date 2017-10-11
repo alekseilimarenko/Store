@@ -4,7 +4,7 @@
     {
         public int GeneralState { get; set; }
 
-        public string RepearCost { get; set; }
+        public int RepearCost { get; set; }
 
         public string AddServ { get; set; }
 
